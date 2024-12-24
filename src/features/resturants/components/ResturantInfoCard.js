@@ -5,7 +5,7 @@ import star from "../../../../assets/star.js";
 import open from "../../../../assets/open.js";
 import { Spacer } from "./Spacer.js";
 import { Text } from "./typography/text.js";
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   Info,
   Address,
@@ -19,10 +19,10 @@ import {
 // Resturant card component
 const ResturantInfoCard = ({ resturant = {} }) => {
   const {
-    name = "Some Resturant",
+    name = "Somes Resturant",
     icon,
     photos = [require("../../../../assets/food1.jpg")],
-    address = "Long avenue,top side",
+    address = "Long avenue top side",
     isOPenNow = true,
     rating = 4,
     isClosedTemporarily = false,
@@ -33,13 +33,16 @@ const ResturantInfoCard = ({ resturant = {} }) => {
   return (
     <>
       <ResturantCard>
-        <Card elevation={4}>
+        <Card elevation={7}>
           <ResturantCardCover>
-            <Card.Cover key={name} source={photos[1]} />
+            <Card.Cover
+              key={name}
+              source={{ uri: "https://picsum.photos/700" }}
+            />
           </ResturantCardCover>
           <Info>
-            <Spacer postion="bottom" size="small">
-              <Text variant="label">{name}</Text>
+            <Spacer postion="top" size="medium">
+              <Text variant="hint">{name}</Text>
             </Spacer>
             <Section>
               <Spacer position="left" size="medium">

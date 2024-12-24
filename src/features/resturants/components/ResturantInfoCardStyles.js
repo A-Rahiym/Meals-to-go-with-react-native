@@ -13,6 +13,7 @@ export const Info = styled.View`
 export const Address = styled.Text`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.caption};
+  padding-bottom: ${(props) => props.theme.space[1]};
 `;
 
 export const Section = styled.View`
@@ -27,9 +28,8 @@ export const SectionEnd = styled.View`
 `;
 
 export const ResturantCardCover = styled(Card)`
-  padding: 2px;
-  backgroundcolor: ${({ theme }) => theme.colors.bg.quaternary};
-  // backgroundcolor: "white;
+  backgroundcolor: ${({ theme }) => theme.colors.bg.primary};
+  backgroundcolor: "red";
 `;
 
 export const Rating = styled.View`
@@ -40,6 +40,5 @@ export const Rating = styled.View`
 `;
 
 export const ResturantCard = styled(Card)`
-  // backgroundcolor: ${(props) => props.theme.colors.bg.primary};
-  backgroundcolor: "red";
+  backgroundcolor: ${(props) => props.theme.colors.bg.secondary};
 `;
