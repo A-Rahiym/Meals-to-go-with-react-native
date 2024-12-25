@@ -42,3 +42,8 @@ export const Rating = styled.View`
 export const ResturantCard = styled(Card)`
   backgroundcolor: ${(props) => props.theme.colors.bg.secondary};
 `;
+
+export const Status = styled.View`
+
+
+`

@@ -5,7 +5,7 @@ import star from "../../../../assets/star.js";
 import open from "../../../../assets/open.js";
 import { Spacer } from "./Spacer.js";
 import { Text } from "./typography/text.js";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Image } from "react-native";
 import {
   Info,
   Address,
@@ -21,24 +21,20 @@ const ResturantInfoCard = ({ resturant = {} }) => {
   const {
     name = "Somes Resturant",
     icon,
-    photos = [require("../../../../assets/food1.jpg")],
-    address = "Long avenue top side",
+    photos,
+    vicinity = "Long avenue top side",
     isOPenNow = true,
     rating = 4,
-    isClosedTemporarily = false,
+    isClosedTemporarily = true,
   } = resturant;
 
   const ratingArray = Array.from(new Array(Math.floor(4)));
-  console.log(ratingArray);
   return (
     <>
       <ResturantCard>
         <Card elevation={7}>
           <ResturantCardCover>
-            <Card.Cover
-              key={name}
-              source={{ uri: "https://picsum.photos/700" }}
-            />
+            <Card.Cover key={name} source={{ uri: photos[0] }} />
           </ResturantCardCover>
           <Info>
             <Spacer postion="top" size="medium">
@@ -54,7 +50,7 @@ const ResturantInfoCard = ({ resturant = {} }) => {
               </Spacer>
               <SectionEnd>
                 <Spacer postion="top" size="large">
-                  {!isClosedTemporarily && (
+                  {isClosedTemporarily ? (
                     <Text
                       variant="caption"
                       style={{
@@ -65,14 +61,34 @@ const ResturantInfoCard = ({ resturant = {} }) => {
                     >
                       IS CLOSED TEMPRARILY
                     </Text>
+                  ) : (
+                    <Text
+                      variant="caption"
+                      style={{
+                        color: "green",
+                        fontFamily: `${(prop) => prop.theme.fonts.body}`,
+                        paddingRight: 10,
+                      }}
+                    >
+                      OPEN FOR BUSINESS
+                    </Text>
                   )}
                 </Spacer>
                 <Spacer postion="left" size="large">
-                  {isOPenNow && <SvgXml xml={open} width={20} height={20} />}
+                  {!isClosedTemporarily && (
+                    <SvgXml xml={open} width={20} height={20} />
+                  )}
+                </Spacer>
+
+                <Spacer position="left" size="large">
+                  <Image
+                    source={{ uri: icon }}
+                    style={{ width: 15, height: 15 }}
+                  />
                 </Spacer>
               </SectionEnd>
             </Section>
-            <Address>{address}</Address>
+            <Address>{vicinity}</Address>
           </Info>
         </Card>
       </ResturantCard>

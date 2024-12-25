@@ -5,6 +5,11 @@ import { View, FlatList } from "react-native";
 import { Searchbar } from "react-native-paper";
 import ResturantInfoCard from "../components/ResturantInfoCard";
 import { Spacer } from "../components/Spacer";
+import LoadingIndicator from "../components/LoadingIndicator";
+import ActivityIndicator from "react-native-paper";
+
+import { useContext } from "react";
+import { ResturantsContext } from "../../../services/resturants/resturantsContext";
 
 const ScreenContainer = styled(View)`
   flex: 1;
@@ -21,26 +26,36 @@ const ScreenSearchBar = styled(View)`
 const ResturantList = styled(View)`
   paddingtop: StatusBar.currentHeight;
 `;
-
-const searchStyle = { backgroundColor: "white", borderColor: "black" };
+const searchStyle = { backgroundColor: "lightgray", borderColor: "black" };
 
 const ResturantScreen = () => {
+  const { resturants, isLoading } = useContext(ResturantsContext);
   return (
     <>
+      {/* <View style={{ position: "absolute", top: "50%", left: "50%" }}>
+        <LoadingIndicator />
+      </View> */}
+
       <ScreenContainer>
         <ScreenSearchBar>
           <Searchbar placeholder="search" style={searchStyle} />
         </ScreenSearchBar>
         <ResturantList>
-          <FlatList
-            data={[{ name: 1 }, { name: 2 }, {}, {}, {}, {}, {}]}
-            renderItem={() => (
-              <Spacer position={"bottom"} size={"medium"}>
-                <ResturantInfoCard />
-              </Spacer>
-            )}
-            keyExtractor={(item) => item.name}
-          />
+          {isLoading ? (
+            <View style={{ position: "absolute", top: "50%", left: "50%" }}>
+              <LoadingIndicator />
+            </View>
+          ) : (
+            <FlatList
+              data={resturants}
+              renderItem={({ item }) => (
+                <Spacer position={"bottom"} size={"medium"}>
+                  <ResturantInfoCard resturant={item} />
+                </Spacer>
+              )}
+              keyExtractor={(item) => item.name}
+            />
+          )}
         </ResturantList>
       </ScreenContainer>
     </>
