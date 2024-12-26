@@ -1,20 +1,23 @@
-import { useState, createContext, useEffect, useMemo } from "react";
+import { useState, createContext, useEffect, useMemo, useContext } from "react";
 import { resturantRequest, restaurantsTransfrom } from "./resturantsServices";
-
+import { LocationContext } from "../location/locationContext";
 export const ResturantsContext = createContext({
   resturants: [],
-  isLoading: false,
-  error: null
+  isloading: false,
+  error: null,
 });
 
 export const ResturantsContextProvider = ({ children }) => {
   const [resturants, setResturants] = useState([]);
   const [isloading, setIsLoading] = useState(Boolean);
   const [error, setError] = useState(null);
+  const { location } = useContext(LocationContext);
 
-  const resolveResturants = () => {
+  const retrieveResturants = (location) => {
     setTimeout(() => {
-      resturantRequest()
+      setIsLoading(true);
+      setResturants([]);
+      resturantRequest(location)
         .then(restaurantsTransfrom)
         .then((x) => {
           setIsLoading(false);
@@ -24,14 +27,16 @@ export const ResturantsContextProvider = ({ children }) => {
           setIsLoading(false);
           setError(err);
         });
-    }, 5000);
+    }, 2000);
   };
 
   useEffect(() => {
-    resolveResturants();
-  }, []);
-
-  console.log(resturants);
+    if (location) {
+      const transformed_location = `${location.lat},${location.lng}`;
+      console.log("resturant location", transformed_location);
+      retrieveResturants(transformed_location);
+    }
+  }, [location]);
 
   const value = { resturants, isloading, error };
   return (

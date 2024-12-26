@@ -1,6 +1,6 @@
 import { mocks, mockImages } from "./mock";
 import camelize from "camelize";
-export const resturantRequest = (location = "41.878113,-87.629799") => {
+export const resturantRequest = (location) => {
   return new Promise((resolve, reject) => {
     const mock = mocks[location];
     if (!mock) {
@@ -12,10 +12,9 @@ export const resturantRequest = (location = "41.878113,-87.629799") => {
 
 export const restaurantsTransfrom = ({ results = [] }) => {
   const mappedResult = results.map((resturant) => {
-    resturant.photos = resturant.photos.map((p) => {
+    resturant.photos = resturant.photos.map(() => {
       return mockImages[Math.ceil(Math.random() * (mockImages.length - 1))];
     });
-    console.log(resturant.photos);
     return {
       ...resturant,
       isOPenNow: resturant.opening_hours && resturant.opening_hours.open_now,
@@ -24,7 +23,3 @@ export const restaurantsTransfrom = ({ results = [] }) => {
   });
   return camelize(mappedResult);
 };
-
-// resturantRequest()
-//   .then(restaurantsTransfrom)
-//   .then((a) => console.log(a[3].userRatingsTotal));

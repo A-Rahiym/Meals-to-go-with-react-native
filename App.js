@@ -18,7 +18,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { ThemeProvider } from "styled-components/native";
 import { theme } from "./src/infrastructure/theme";
 import { ResturantsContextProvider } from "./src/services/resturants/resturantsContext";
-
+import { LocationContextProvider } from "./src/services/location/locationContext";
 import ResturantScreen from "./src/features/resturants/screen/ResturantScreen";
 import MapScreen from "./src/features/resturants/screen/MapScreen";
 import SettingScreen from "./src/features/resturants/screen/SettingScreen";
@@ -49,22 +49,24 @@ const App = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <ResturantsContextProvider>
-          <NavigationContainer>
-            <Tab.Navigator
-              screenOptions={screenOptions}
-              tabBarOptions={{
-                activeTintColor: "tomato",
-                inactiveTintColor: "gray",
-              }}
-            >
-              <Tab.Screen name="resturants" component={ResturantScreen} />
-              <Tab.Screen name="map" component={MapScreen} />
-              <Tab.Screen name="settings" component={SettingScreen} />
-            </Tab.Navigator>
-          </NavigationContainer>
-          <StatusBar barStyle="auto" />
-        </ResturantsContextProvider>
+        <LocationContextProvider>
+          <ResturantsContextProvider>
+            <NavigationContainer>
+              <Tab.Navigator
+                screenOptions={screenOptions}
+                tabBarOptions={{
+                  activeTintColor: "tomato",
+                  inactiveTintColor: "gray",
+                }}
+              >
+                <Tab.Screen name="resturants" component={ResturantScreen} />
+                <Tab.Screen name="map" component={MapScreen} />
+                <Tab.Screen name="settings" component={SettingScreen} />
+              </Tab.Navigator>
+            </NavigationContainer>
+            <StatusBar barStyle="auto" />
+          </ResturantsContextProvider>
+        </LocationContextProvider>
       </ThemeProvider>
     </>
   );

@@ -6,10 +6,12 @@ import { Searchbar } from "react-native-paper";
 import ResturantInfoCard from "../components/ResturantInfoCard";
 import { Spacer } from "../components/Spacer";
 import LoadingIndicator from "../components/LoadingIndicator";
-import ActivityIndicator from "react-native-paper";
+
+import Search from "../components/Search";
 
 import { useContext } from "react";
 import { ResturantsContext } from "../../../services/resturants/resturantsContext";
+import { LocationContext } from "../../../services/location/locationContext";
 
 const ScreenContainer = styled(View)`
   flex: 1;
@@ -17,29 +19,17 @@ const ScreenContainer = styled(View)`
   background-color: ${(props) => props.theme.colors.bg.primary};
 `;
 
-const ScreenSearchBar = styled(View)`
-  padding: ${({ theme }) => theme.space[1]};
-  background-color: ${({ theme }) => theme.colors.bg.quaternary};
-  margin-top: ${({ theme }) => theme.space[1]};
-  margin-bottom: ${({ theme }) => theme.space[2]};
-`;
 const ResturantList = styled(View)`
   paddingtop: StatusBar.currentHeight;
 `;
-const searchStyle = { backgroundColor: "lightgray", borderColor: "black" };
 
 const ResturantScreen = () => {
   const { resturants, isLoading } = useContext(ResturantsContext);
+
   return (
     <>
-      {/* <View style={{ position: "absolute", top: "50%", left: "50%" }}>
-        <LoadingIndicator />
-      </View> */}
-
       <ScreenContainer>
-        <ScreenSearchBar>
-          <Searchbar placeholder="search" style={searchStyle} />
-        </ScreenSearchBar>
+        <Search />
         <ResturantList>
           {isLoading ? (
             <View style={{ position: "absolute", top: "50%", left: "50%" }}>
