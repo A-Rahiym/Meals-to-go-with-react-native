@@ -9,7 +9,7 @@ export const ResturantsContext = createContext({
 
 export const ResturantsContextProvider = ({ children }) => {
   const [resturants, setResturants] = useState([]);
-  const [isloading, setIsLoading] = useState(Boolean);
+  const [isloading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const { location } = useContext(LocationContext);
 
