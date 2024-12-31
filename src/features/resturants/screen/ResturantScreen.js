@@ -25,7 +25,6 @@ const ResturantList = styled(View)`
 const ResturantScreen = ({ navigation }) => {
   const { resturants, isloading } = useContext(ResturantsContext);
   const { navigate } = navigation;
-  console.log(navigate);
   return (
     <>
       <ScreenContainer>
@@ -42,7 +41,7 @@ const ResturantScreen = ({ navigation }) => {
                 <Spacer position={"bottom"} size={"medium"}>
                   <TouchableOpacity
                     onPress={() =>
-                      navigate("Resturant details", { resturant : item })
+                      navigate("Resturant details", { resturant: item })
                     }
                   >
                     <ResturantInfoCard resturant={item} />

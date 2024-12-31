@@ -25,6 +25,7 @@ const Search = () => {
   return (
     <ScreenSearchBar>
       <Searchbar
+        icon="map"
         value={searchedKeyword}
         placeholder="search Location"
         onChangeText={(Text) => {

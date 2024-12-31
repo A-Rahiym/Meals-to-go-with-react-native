@@ -1,7 +1,7 @@
 import React from "react";
 
 import ResturantScreen from "../../features/resturants/screen/ResturantScreen";
-import { MapNavigationStack } from "../../features/resturants/screen/MapScreen";
+import MapScreen from "../../features/map/screens/MapScreen";
 import SettingScreen from "../../features/resturants/screen/SettingScreen";
 import { ResturantNavigator } from "./ResturantNavigator";
 import { NavigationContainer } from "@react-navigation/native";
@@ -36,7 +36,7 @@ const AppNavigator = () => {
           }}
         >
           <Tab.Screen name="resturants" component={ResturantNavigator} />
-          <Tab.Screen name="map" component={MapNavigationStack} />
+          <Tab.Screen name="map" component={MapScreen} />
           <Tab.Screen name="settings" component={SettingScreen} />
         </Tab.Navigator>
       </NavigationContainer>
