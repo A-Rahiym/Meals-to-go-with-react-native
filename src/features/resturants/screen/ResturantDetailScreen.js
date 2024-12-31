@@ -1,105 +1,76 @@
-import React from "react";
-import { Image, Text } from "react-native";
-import { Card } from "react-native-paper";
-import { SvgXml } from "react-native-svg";
-import star from "../../../../assets/star.js";
-import open from "../../../../assets/open.js";
-import { Spacer } from "../components/Spacer.js";
-
-import {
-  Info,
-  Address,
-  Section,
-  SectionEnd,
-  ResturantCardCover,
-  Rating,
-  ResturantCard,
-} from "../components/ResturantInfoCardStyles.js";
+import React, { useState } from "react";
+import { View, ScrollView, StyleSheet } from "react-native";
+import { List } from "react-native-paper";
+import ResturantInfoCard from "../components/ResturantInfoCard.js";
 
 const ResturantDetailScreen = ({ route }) => {
+  const [breakFastExpanded, setBreakFastExpanded] = useState(false);
+  const [lunchExpanded, setLunchExpanded] = useState(false);
+  const [dinnerExpanded, setDinnerExpanded] = useState(false);
+  const [drinksExpanded, setDrinksExpanded] = useState(false);
   const { resturant } = route.params;
-  const {
-    name = "Somes Resturant",
-    icon,
-    photos,
-    vicinity = "Long avenue top side",
-    isOPenNow = true,
-    rating = 4,
-    isClosedTemporarily = true,
-    placeId,
-  } = resturant;
-  console.log(resturant);
-  const ratingArray = Array.from(new Array(Math.floor(4)));
-  return (
-    <>
-      <ResturantCard>
-        <Card elevation={7}>
-          <ResturantCardCover>
-            <Card.Cover key={name} source={{ uri: photos[0] }} />
-          </ResturantCardCover>
-          <Info>
-            <Spacer postion="top" size="medium">
-              <Text variant="hint">{name}</Text>
-            </Spacer>
-            <Section>
-              <Spacer position="left" size="medium">
-                <Rating>
-                  {ratingArray.map((_, a) => (
-                    <SvgXml
-                      xml={star}
-                      width={20}
-                      height={20}
-                      key={`star-${placeId}-${a}`}
-                    />
-                  ))}
-                </Rating>
-              </Spacer>
-              <SectionEnd>
-                <Spacer postion="top" size="large">
-                  {isClosedTemporarily ? (
-                    <Text
-                      variant="caption"
-                      style={{
-                        color: "red",
-                        fontFamily: `${(prop) => prop.theme.fonts.body}`,
-                        paddingRight: 10,
-                      }}
-                    >
-                      IS CLOSED TEMPRARILY
-                    </Text>
-                  ) : (
-                    <Text
-                      variant="caption"
-                      style={{
-                        color: "green",
-                        fontFamily: `${(prop) => prop.theme.fonts.body}`,
-                        paddingRight: 10,
-                      }}
-                    >
-                      OPEN FOR BUSINESS
-                    </Text>
-                  )}
-                </Spacer>
-                <Spacer postion="left" size="large">
-                  {!isClosedTemporarily && (
-                    <SvgXml xml={open} width={20} height={20} />
-                  )}
-                </Spacer>
 
-                <Spacer position="left" size="large">
-                  <Image
-                    source={{ uri: icon }}
-                    style={{ width: 15, height: 15 }}
-                  />
-                </Spacer>
-              </SectionEnd>
-            </Section>
-            <Address>{vicinity}</Address>
-          </Info>
-        </Card>
-      </ResturantCard>
-    </>
+  return (
+    <ScrollView style={{ flex: 1 }}>
+      <ResturantInfoCard resturant={resturant} />
+      <View style={{ flex: 2 }}>
+        <List.Accordion
+          title="Breakfast"
+          left={(props) => <List.Icon {...props} icon="bread-slice" />}
+          expanded={breakFastExpanded}
+          onPress={() => setBreakFastExpanded(!breakFastExpanded)}
+          style={styles.accordion}
+        >
+          <List.Item title="Pancakes" />
+          <List.Item title="Omelette" />
+          <List.Item title="Smoothie" />
+          <List.Item title="Granola" />
+        </List.Accordion>
+        <List.Accordion
+          title="Lunch"
+          left={(props) => <List.Icon {...props} icon="hamburger" />}
+          expanded={lunchExpanded}
+          onPress={() => setLunchExpanded(!lunchExpanded)}
+          style={styles.accordion}
+        >
+          <List.Item title="Grilled Chicken Salad" />
+          <List.Item title="Pasta" />
+          <List.Item title="Burrito" />
+          <List.Item title="Soup" />
+        </List.Accordion>
+        <List.Accordion
+          title="Dinner"
+          left={(props) => <List.Icon {...props} icon="food" />}
+          expanded={dinnerExpanded}
+          onPress={() => setDinnerExpanded(!dinnerExpanded)}
+          style={styles.accordion}
+        >
+          <List.Item title="Steak" />
+          <List.Item title="Roasted Vegetables" />
+          <List.Item title="Fish Curry" />
+          <List.Item title="Pizza" />
+        </List.Accordion>
+        <List.Accordion
+          title="Drinks"
+          left={(props) => <List.Icon {...props} icon="cup" />}
+          expanded={drinksExpanded}
+          onPress={() => setDrinksExpanded(!drinksExpanded)}
+          style={styles.accordion}
+        >
+          <List.Item title="Lemonade" />
+          <List.Item title="Iced Coffee" />
+          <List.Item title="Smoothie" />
+          <List.Item title="Cocktail" />
+        </List.Accordion>
+      </View>
+    </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  accordion: {
+    marginVertical: 8,
+  },
+});
 
 export default ResturantDetailScreen;
