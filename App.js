@@ -13,7 +13,7 @@ import {
   Lato_700Bold,
 } from "@expo-google-fonts/lato";
 
-import { NavigationContainer } from "@react-navigation/native";
+import { FavouriteContextProvider } from "./src/services/favourites/favouriteContext";
 import { Navigation } from "./src/infrastructure/navigation";
 
 import { ThemeProvider } from "styled-components/native";
@@ -28,12 +28,14 @@ const App = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <LocationContextProvider>
-          <ResturantsContextProvider>
-            <StatusBar barStyle="auto" />
-            <Navigation />
-          </ResturantsContextProvider>
-        </LocationContextProvider>
+        <FavouriteContextProvider>
+          <LocationContextProvider>
+            <ResturantsContextProvider>
+              <StatusBar barStyle="auto" />
+              <Navigation />
+            </ResturantsContextProvider>
+          </LocationContextProvider>
+        </FavouriteContextProvider>
       </ThemeProvider>
     </>
   );

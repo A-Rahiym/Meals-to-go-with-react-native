@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
-import MapView, { MapMarker } from "react-native-maps";
-
+import { View, StyleSheet, Text } from "react-native";
+import MapView, { MapMarker, Callout } from "react-native-maps";
+import { useNavigation } from "@react-navigation/native";
+import { MapCallout } from "../components/MapCallout";
 import styled from "styled-components";
 import Search from "../components/Search";
 import { LocationContext } from "../../../services/location/locationContext";
@@ -27,6 +28,7 @@ const MapScreen = () => {
   const { location } = useContext(LocationContext);
   const { lat, lng, viewport } = location || {};
   const [latDelta, setLatDelta] = useState(0);
+  const navigate = useNavigation();
 
   useEffect(() => {
     if (viewport) {
@@ -50,7 +52,7 @@ const MapScreen = () => {
           longitudeDelta: 0.02,
         }}
       >
-        {resturants.map((resturant) => {
+        {resturants.map((resturant) => (
           <MapMarker
             key={resturant.name}
             title={resturant.name}
@@ -58,8 +60,18 @@ const MapScreen = () => {
               latitude: resturant.geometry.location.lat,
               longitude: resturant.geometry.location.lng,
             }}
-          />;
-        })}
+          >
+            <Callout
+              onPress={() =>
+                navigate("Resturant details", {
+                  resturant: resturant,
+                })
+              }
+            >
+              <MapCallout resturant={resturant} />
+            </Callout>
+          </MapMarker>
+        ))}
       </Map>
     </Container>
   );

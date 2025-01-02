@@ -11,7 +11,7 @@ import Search from "../components/Search";
 
 import { useContext } from "react";
 import { ResturantsContext } from "../../../services/resturants/resturantsContext";
-
+import { FavouriteContext } from "../../../services/favourites/favouriteContext";
 const ScreenContainer = styled(View)`
   flex: 1;
   margin-top: ${StatusBar.currentHeight / 4}px;
@@ -24,7 +24,9 @@ const ResturantList = styled(View)`
 
 const ResturantScreen = ({ navigation }) => {
   const { resturants, isloading } = useContext(ResturantsContext);
+  const { favourites } = useContext(FavouriteContext);
   const { navigate } = navigation;
+  console.log(favourites);
   return (
     <>
       <ScreenContainer>
@@ -41,7 +43,11 @@ const ResturantScreen = ({ navigation }) => {
                 <Spacer position={"bottom"} size={"medium"}>
                   <TouchableOpacity
                     onPress={() =>
-                      navigate("Resturant details", { resturant: item })
+                      navigate(
+                        "Resturant details",
+                        { resturant: item },
+                        console.log(favourites)
+                      )
                     }
                   >
                     <ResturantInfoCard resturant={item} />
