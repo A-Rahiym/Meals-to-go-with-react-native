@@ -1,5 +1,5 @@
 import { StatusBar } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { View, FlatList } from "react-native";
 import ResturantInfoCard from "../components/ResturantInfoCard";
@@ -8,6 +8,7 @@ import LoadingIndicator from "../components/LoadingIndicator";
 import { TouchableOpacity } from "react-native";
 
 import Search from "../components/Search";
+import { FavouritesBar } from "../components/FavouritesBar";
 
 import { useContext } from "react";
 import { ResturantsContext } from "../../../services/resturants/resturantsContext";
@@ -26,11 +27,16 @@ const ResturantScreen = ({ navigation }) => {
   const { resturants, isloading } = useContext(ResturantsContext);
   const { favourites } = useContext(FavouriteContext);
   const { navigate } = navigation;
+  const [isToggled, setIsToggled] = useState(false);
 
   return (
     <>
       <ScreenContainer>
-        <Search />
+        <Search
+          isFavouriteToggled={isToggled}
+          onFavouriteToggled={() => setIsToggled(!isToggled)}
+        />
+        {isToggled && <FavouritesBar />}
         {isloading ? (
           <View style={{ flex: 1 }}>
             <LoadingIndicator />

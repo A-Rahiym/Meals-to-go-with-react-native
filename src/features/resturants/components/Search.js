@@ -10,15 +10,9 @@ const ScreenSearchBar = styled(View)`
   margin-bottom: ${({ theme }) => theme.space[2]};
 `;
 
-const Search = () => {
+const Search = ({ isFavouriteToggled, onFavouriteToggled }) => {
   const { keyword, search, location } = useContext(LocationContext);
   const [searchedKeyword, setSearchedKeyword] = useState(keyword);
-  const [IsFavouriteToggled, setFavouriteToggled] = useState(false);
-
-  const toggleFavourite = () => {
-    setFavouriteToggled((value) => !value);
-    console.log(IsFavouriteToggled);
-  };
 
   useEffect(() => {
     search(searchedKeyword);
@@ -31,8 +25,8 @@ const Search = () => {
   return (
     <ScreenSearchBar>
       <Searchbar
-        icon={IsFavouriteToggled ? "heart" : "hearto"}
-        onIconPress={() => console.log(toggleFavourite)}
+        icon={isFavouriteToggled ? "heart" : "heart-outline"}
+        onIconPress={onFavouriteToggled}
         value={searchedKeyword}
         placeholder="search Location"
         onChangeText={(Text) => {
