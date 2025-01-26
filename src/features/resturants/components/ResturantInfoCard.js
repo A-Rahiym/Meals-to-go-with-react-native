@@ -6,6 +6,7 @@ import open from "../../../../assets/open.js";
 import { Spacer } from "./Spacer.js";
 import { Text } from "./typography/text.js";
 import { Image } from "react-native";
+import { FavouriteIcons } from "./FavouriteIcons.js";
 import {
   Info,
   Address,
@@ -33,6 +34,7 @@ const ResturantInfoCard = ({ resturant = {} }) => {
   return (
     <>
       <ResturantCard>
+        <FavouriteIcons resturant={resturant} />
         <Card elevation={7}>
           <ResturantCardCover>
             <Card.Cover key={name} source={{ uri: photos[0] }} />

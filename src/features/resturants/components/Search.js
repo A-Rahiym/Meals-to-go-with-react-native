@@ -13,6 +13,12 @@ const ScreenSearchBar = styled(View)`
 const Search = () => {
   const { keyword, search, location } = useContext(LocationContext);
   const [searchedKeyword, setSearchedKeyword] = useState(keyword);
+  const [IsFavouriteToggled, setFavouriteToggled] = useState(false);
+
+  const toggleFavourite = () => {
+    setFavouriteToggled((value) => !value);
+    console.log(IsFavouriteToggled);
+  };
 
   useEffect(() => {
     search(searchedKeyword);
@@ -25,6 +31,8 @@ const Search = () => {
   return (
     <ScreenSearchBar>
       <Searchbar
+        icon={IsFavouriteToggled ? "heart" : "hearto"}
+        onIconPress={() => console.log(toggleFavourite)}
         value={searchedKeyword}
         placeholder="search Location"
         onChangeText={(Text) => {

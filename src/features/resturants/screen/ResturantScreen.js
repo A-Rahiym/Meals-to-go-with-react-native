@@ -26,7 +26,7 @@ const ResturantScreen = ({ navigation }) => {
   const { resturants, isloading } = useContext(ResturantsContext);
   const { favourites } = useContext(FavouriteContext);
   const { navigate } = navigation;
-  console.log(favourites);
+
   return (
     <>
       <ScreenContainer>
@@ -43,11 +43,7 @@ const ResturantScreen = ({ navigation }) => {
                 <Spacer position={"bottom"} size={"medium"}>
                   <TouchableOpacity
                     onPress={() =>
-                      navigate(
-                        "Resturant details",
-                        { resturant: item },
-                        console.log(favourites)
-                      )
+                      navigate("Resturant details", { resturant: item })
                     }
                   >
                     <ResturantInfoCard resturant={item} />

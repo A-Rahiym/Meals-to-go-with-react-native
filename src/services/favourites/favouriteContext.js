@@ -12,7 +12,10 @@ export const FavouriteContextProvider = ({ children }) => {
     setFavourites([...favourites, newfavourite]);
   };
   const remove = (removed) => {
-    const newfavourites = favourites.filter((x) => x.id !== removed.id);
+    const newfavourites = favourites.filter(
+      (x) => x.placeId !== removed.placeId
+    );
+
     setFavourites(newfavourites);
   };
 
