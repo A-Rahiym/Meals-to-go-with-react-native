@@ -36,7 +36,9 @@ const ResturantScreen = ({ navigation }) => {
           isFavouriteToggled={isToggled}
           onFavouriteToggled={() => setIsToggled(!isToggled)}
         />
-        {isToggled && <FavouritesBar />}
+        {isToggled && (
+          <FavouritesBar favourites={favourites} onNavigate={navigate} />
+        )}
         {isloading ? (
           <View style={{ flex: 1 }}>
             <LoadingIndicator />

@@ -1,27 +1,39 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "styled-components/native";
 import { Image, View, Text } from "react-native";
-import WebView from "react-native-webview";
 
-
-const CompactImage = styled(WebView)`
+// Styled Image
+const CompactImage = styled(Image)`
   border-radius: 10px;
   width: 120px;
   height: 100px;
 `;
 
-const Item = styled.View`
+// Styled Wrapper for the Item
+const Item = styled(View)`
   padding: 10px;
   max-width: 120px;
   align-items: center;
 `;
 
+const RestaurantName = styled(Text)`
+  margin-top: 5px;
+  font-size: 14px;
+  text-align: center;
+  font-weight: bold;
+`;
+
 export const CompactResturantInfo = ({ resturant }) => {
+  const photo = resturant?.photos?.[0]; // Safely access the photo
+
+  if (!photo) {
+    return null; // Return nothing if no photo is available
+  }
+
   return (
     <Item>
-      <WebView source={{ uri: resturant.photos[0] }} />
-      <CompactImage source={{ uri: resturant.photos[0] }} />
-      <Text>{resturant.name}</Text>
+      <CompactImage source={{ uri: photo }} />
+      <RestaurantName>{resturant.name}</RestaurantName>
     </Item>
   );
 };
